@@ -1,0 +1,254 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  gap: 32px;
+}
+
+/* Timer display */
+.timer-section {
+  text-align: center;
+}
+
+.label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.timer {
+  font-size: 64px;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -2px;
+  color: #fff;
+}
+
+.timer .unit {
+  font-size: 20px;
+  font-weight: 400;
+  color: #555;
+  letter-spacing: 0;
+  margin: 0 2px;
+}
+
+.no-data {
+  font-size: 24px;
+  color: #444;
+  font-weight: 300;
+}
+
+/* Smoke button */
+.smoke-btn {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  background: #151515;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.smoke-btn:active {
+  transform: scale(0.95);
+  background: #1a1a1a;
+  border-color: #e74c3c;
+}
+
+.smoke-btn .icon {
+  font-size: 36px;
+}
+
+/* Stats button */
+.stats-btn {
+  background: none;
+  border: 1px solid #222;
+  color: #555;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stats-btn:active {
+  color: #fff;
+  border-color: #444;
+}
+
+/* Total count */
+.total {
+  font-size: 14px;
+  color: #444;
+}
+
+.total span {
+  color: #888;
+  font-weight: 600;
+}
+
+/* Dashboard overlay */
+.dashboard {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #1a1a1a;
+  position: sticky;
+  top: 0;
+  background: #0a0a0a;
+  z-index: 1;
+}
+
+.dash-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dash-content {
+  padding: 20px;
+  flex: 1;
+}
+
+/* Stats summary cards */
+.stat-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-card .value {
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.stat-card .stat-label {
+  font-size: 12px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Day rows */
+.day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.day-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #141414;
+}
+
+.day-date {
+  width: 100px;
+  font-size: 13px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.day-bar-wrap {
+  flex: 1;
+  margin: 0 12px;
+}
+
+.day-bar {
+  height: 24px;
+  background: #e74c3c;
+  border-radius: 4px;
+  min-width: 2px;
+  opacity: 0.7;
+}
+
+.day-count {
+  width: 36px;
+  text-align: right;
+  font-size: 14px;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.empty-dash {
+  text-align: center;
+  color: #444;
+  padding: 60px 20px;
+  font-size: 16px;
+}
+
+/* Clear data */
+.danger-zone {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #1a1a1a;
+  text-align: center;
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid #331111;
+  color: #663333;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clear-btn:active {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
