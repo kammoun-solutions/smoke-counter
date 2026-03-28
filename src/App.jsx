@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import Lung from './Lung.jsx'
 import './App.css'
 
 const STORAGE_KEY = 'smoke-counter'
@@ -53,8 +54,7 @@ function groupByDay(logs) {
     const key = toDateKey(ts)
     map[key] = (map[key] || 0) + 1
   }
-  const entries = Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]))
-  return entries
+  return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]))
 }
 
 function App() {
@@ -151,27 +151,28 @@ function App() {
 
   return (
     <div className="app">
+      <Lung elapsedMs={elapsed} />
+
       <div className="timer-section">
-        <div className="label">Time since last cigarette</div>
         {elapsed !== null ? (
           <div className="timer">{formatElapsed(elapsed)}</div>
         ) : (
-          <div className="no-data">No cigarettes logged yet</div>
+          <div className="no-data">Take your first breath</div>
         )}
       </div>
 
       <button className="smoke-btn" onClick={handleSmoke}>
-        <span className="icon">🚬</span>
         Smoke
       </button>
 
-      <button className="stats-btn" onClick={() => setShowDash(true)}>
-        Dashboard
-      </button>
-
-      {data.logs.length > 0 && (
-        <div className="total">Total: <span>{data.logs.length}</span></div>
-      )}
+      <div className="bottom-row">
+        <button className="stats-btn" onClick={() => setShowDash(true)}>
+          Dashboard
+        </button>
+        {data.logs.length > 0 && (
+          <div className="total"><span>{data.logs.length}</span> logged</div>
+        )}
+      </div>
     </div>
   )
 }

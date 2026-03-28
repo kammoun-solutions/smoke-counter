@@ -4,8 +4,52 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: 24px;
-  gap: 32px;
+  padding: 24px 24px 40px;
+  gap: 20px;
+}
+
+/* Lung visualization */
+.lung-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lung-svg {
+  width: 200px;
+  height: 250px;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+}
+
+.lung-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -55%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+  transition: background 2s ease;
+  z-index: -1;
+}
+
+.lung-pct {
+  font-size: 16px;
+  font-weight: 600;
+  color: #888;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lung-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+  margin-top: 2px;
 }
 
 /* Timer display */
@@ -13,75 +57,69 @@
   text-align: center;
 }
 
-.label {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
 .timer {
-  font-size: 64px;
+  font-size: 40px;
   font-weight: 200;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   color: #fff;
 }
 
 .timer .unit {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   color: #555;
   letter-spacing: 0;
-  margin: 0 2px;
+  margin: 0 1px;
 }
 
 .no-data {
-  font-size: 24px;
+  font-size: 18px;
   color: #444;
   font-weight: 300;
 }
 
 /* Smoke button */
 .smoke-btn {
-  width: 180px;
-  height: 180px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 2px solid #333;
-  background: #151515;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
+  border: 2px solid #331111;
+  background: #1a1010;
+  color: #e74c3c;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .smoke-btn:active {
-  transform: scale(0.95);
-  background: #1a1a1a;
+  transform: scale(0.93);
+  background: #2a1515;
   border-color: #e74c3c;
 }
 
-.smoke-btn .icon {
-  font-size: 36px;
+/* Bottom row */
+.bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* Stats button */
 .stats-btn {
   background: none;
   border: 1px solid #222;
   color: #555;
-  padding: 10px 24px;
+  padding: 8px 20px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
@@ -92,9 +130,8 @@
   border-color: #444;
 }
 
-/* Total count */
 .total {
-  font-size: 14px;
+  font-size: 13px;
   color: #444;
 }
 
@@ -149,7 +186,6 @@
   flex: 1;
 }
 
-/* Stats summary cards */
 .stat-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -179,7 +215,6 @@
   letter-spacing: 1px;
 }
 
-/* Day rows */
 .day-list {
   display: flex;
   flex-direction: column;
@@ -229,7 +264,6 @@
   font-size: 16px;
 }
 
-/* Clear data */
 .danger-zone {
   margin-top: 40px;
   padding-top: 20px;
