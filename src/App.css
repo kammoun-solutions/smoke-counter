@@ -308,6 +308,64 @@
   color: #fff;
 }
 
+/* Goal input */
+.goal-input-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.goal-input {
+  flex: 1;
+  background: #141414;
+  border: 1px solid #222;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  padding: 12px 16px;
+  outline: none;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+
+.goal-input::placeholder {
+  color: #444;
+}
+
+.goal-input:focus {
+  border-color: #444;
+}
+
+.goal-input::-webkit-inner-spin-button,
+.goal-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.goal-save-btn {
+  background: #1a1215;
+  border: 1px solid #e8869c;
+  color: #e8869c;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s;
+}
+
+.goal-save-btn:disabled {
+  border-color: #222;
+  color: #333;
+  cursor: default;
+}
+
+.goal-save-btn:not(:disabled):active {
+  transform: scale(0.95);
+}
+
 .goal-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

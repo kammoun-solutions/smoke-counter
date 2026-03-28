@@ -111,10 +111,14 @@ function App() {
     }
   }, [])
 
-  const handleGoalChange = useCallback((minutes) => {
-    const next = { ...settings, goalMinutes: minutes }
+  const [goalInput, setGoalInput] = useState('')
+
+  const handleGoalSave = useCallback((minutes) => {
+    const clamped = Math.max(1, Math.min(1440, Math.round(minutes)))
+    const next = { ...settings, goalMinutes: clamped }
     saveSettings(next)
     setSettings(next)
+    setGoalInput('')
   }, [settings])
 
   const GOAL_PRESETS = [30, 60, 90, 120, 180, 240, 360, 480, 720, 1440]
@@ -130,12 +134,35 @@ function App() {
           <div className="settings-section">
             <div className="settings-label">Goal time between cigarettes</div>
             <div className="settings-current">{formatGoal(settings.goalMinutes)}</div>
+
+            <div className="goal-input-row">
+              <input
+                type="number"
+                className="goal-input"
+                placeholder="Minutes"
+                min="1"
+                max="1440"
+                value={goalInput}
+                onChange={(e) => setGoalInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && goalInput) handleGoalSave(Number(goalInput))
+                }}
+              />
+              <button
+                className="goal-save-btn"
+                disabled={!goalInput}
+                onClick={() => handleGoalSave(Number(goalInput))}
+              >
+                Save
+              </button>
+            </div>
+
             <div className="goal-grid">
               {GOAL_PRESETS.map((m) => (
                 <button
                   key={m}
                   className={`goal-option${settings.goalMinutes === m ? ' active' : ''}`}
-                  onClick={() => handleGoalChange(m)}
+                  onClick={() => handleGoalSave(m)}
                 >
                   {formatGoal(m)}
                 </button>
