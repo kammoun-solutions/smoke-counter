@@ -3,6 +3,8 @@ import Lung from './Lung.jsx'
 import './App.css'
 
 const STORAGE_KEY = 'smoke-counter'
+const SETTINGS_KEY = 'smoke-settings'
+const DEFAULT_GOAL_MINUTES = 120
 
 function loadData() {
   try {
@@ -16,6 +18,27 @@ function loadData() {
 
 function saveData(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+}
+
+function loadSettings() {
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY)
+    if (!raw) return { goalMinutes: DEFAULT_GOAL_MINUTES }
+    return JSON.parse(raw)
+  } catch {
+    return { goalMinutes: DEFAULT_GOAL_MINUTES }
+  }
+}
+
+function saveSettings(s) {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(s))
+}
+
+function formatGoal(minutes) {
+  if (minutes < 60) return `${minutes}m`
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  return m > 0 ? `${h}h ${m}m` : `${h}h`
 }
 
 function formatElapsed(ms) {
@@ -59,8 +82,12 @@ function groupByDay(logs) {
 
 function App() {
   const [data, setData] = useState(loadData)
+  const [settings, setSettings] = useState(loadSettings)
   const [now, setNow] = useState(Date.now())
   const [showDash, setShowDash] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+
+  const goalMs = settings.goalMinutes * 60 * 1000
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000)
@@ -83,6 +110,45 @@ function App() {
       setData(next)
     }
   }, [])
+
+  const handleGoalChange = useCallback((minutes) => {
+    const next = { ...settings, goalMinutes: minutes }
+    saveSettings(next)
+    setSettings(next)
+  }, [settings])
+
+  const GOAL_PRESETS = [30, 60, 90, 120, 180, 240, 360, 480, 720, 1440]
+
+  if (showSettings) {
+    return (
+      <div className="dashboard">
+        <div className="dash-header">
+          <h2>Settings</h2>
+          <button className="close-btn" onClick={() => setShowSettings(false)}>&times;</button>
+        </div>
+        <div className="dash-content">
+          <div className="settings-section">
+            <div className="settings-label">Goal time between cigarettes</div>
+            <div className="settings-current">{formatGoal(settings.goalMinutes)}</div>
+            <div className="goal-grid">
+              {GOAL_PRESETS.map((m) => (
+                <button
+                  key={m}
+                  className={`goal-option${settings.goalMinutes === m ? ' active' : ''}`}
+                  onClick={() => handleGoalChange(m)}
+                >
+                  {formatGoal(m)}
+                </button>
+              ))}
+            </div>
+            <div className="settings-hint">
+              The lung fills up as you approach your goal. Increase it over time to smoke less.
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (showDash) {
     const days = groupByDay(data.logs)
@@ -151,7 +217,7 @@ function App() {
 
   return (
     <div className="app">
-      <Lung elapsedMs={elapsed} />
+      <Lung elapsedMs={elapsed} goalMs={goalMs} />
 
       <div className="timer-section">
         {elapsed !== null ? (
@@ -165,14 +231,20 @@ function App() {
         Smoke
       </button>
 
+      <div className="goal-display">Goal: {formatGoal(settings.goalMinutes)}</div>
+
       <div className="bottom-row">
         <button className="stats-btn" onClick={() => setShowDash(true)}>
           Dashboard
         </button>
-        {data.logs.length > 0 && (
-          <div className="total"><span>{data.logs.length}</span> logged</div>
-        )}
+        <button className="stats-btn" onClick={() => setShowSettings(true)}>
+          Settings
+        </button>
       </div>
+
+      {data.logs.length > 0 && (
+        <div className="total"><span>{data.logs.length}</span> logged</div>
+      )}
     </div>
   )
 }

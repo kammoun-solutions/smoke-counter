@@ -1,11 +1,8 @@
-const FULL_RECOVERY_MS = 24 * 60 * 60 * 1000 // 24 hours to full
-
 function lerp(a, b, t) {
   return a + (b - a) * t
 }
 
 function lerpColor(t) {
-  // 0% = damaged grey-brown, 100% = healthy pink
   const r = Math.round(lerp(80, 232, t))
   const g = Math.round(lerp(65, 134, t))
   const b = Math.round(lerp(60, 156, t))
@@ -19,10 +16,10 @@ function glowColor(t) {
   return `rgba(${r},${g},${b},${0.15 + t * 0.25})`
 }
 
-export default function Lung({ elapsedMs }) {
+export default function Lung({ elapsedMs, goalMs }) {
   const pct = elapsedMs === null
     ? 1
-    : Math.min(1, Math.max(0, elapsedMs / FULL_RECOVERY_MS))
+    : Math.min(1, Math.max(0, elapsedMs / goalMs))
 
   const fillY = 300 - pct * 300 // SVG is 300 tall, fill rises from bottom
   const color = lerpColor(pct)
@@ -84,9 +81,6 @@ export default function Lung({ elapsedMs }) {
 
       <div className="lung-glow" style={{ background: glow }} />
       <div className="lung-pct">{pctLabel}%</div>
-      <div className="lung-label">
-        {pct >= 1 ? 'Fully recovered' : pct >= 0.75 ? 'Almost there' : pct >= 0.5 ? 'Healing' : pct >= 0.25 ? 'Recovering' : pct > 0 ? 'Damaged' : 'Just smoked'}
-      </div>
     </div>
   )
 }

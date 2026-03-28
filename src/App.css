@@ -44,14 +44,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.lung-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #555;
-  margin-top: 2px;
-}
-
 /* Timer display */
 .timer-section {
   text-align: center;
@@ -285,4 +277,71 @@
 .clear-btn:active {
   border-color: #e74c3c;
   color: #e74c3c;
+}
+
+/* Goal display */
+.goal-display {
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+/* Settings */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.settings-label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+}
+
+.settings-current {
+  font-size: 48px;
+  font-weight: 200;
+  color: #fff;
+}
+
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.goal-option {
+  background: #141414;
+  border: 1px solid #222;
+  color: #888;
+  padding: 12px 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.goal-option:active {
+  transform: scale(0.95);
+}
+
+.goal-option.active {
+  border-color: #e8869c;
+  color: #fff;
+  background: #1a1215;
+}
+
+.settings-hint {
+  font-size: 13px;
+  color: #444;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 300px;
 }
